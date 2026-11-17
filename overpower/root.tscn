@@ -1,0 +1,88 @@
+[gd_scene format=3 uid="uid://dluwynytm3sbd"]
+
+[ext_resource type="Script" uid="uid://biutnfe033rdr" path="res://overpower/root.gd" id="1_pq8q7"]
+[ext_resource type="PackedScene" uid="uid://cld8l2hsr56d5" path="res://overpower/maps/test_map/test_map.tscn" id="2_02dfw"]
+[ext_resource type="Shader" uid="uid://def2nm057ygai" path="res://overpower/vfx/border.gdshader" id="7_vyht1"]
+
+[sub_resource type="FastNoiseLite" id="FastNoiseLite_vyht1"]
+seed = -172
+frequency = 0.3201
+fractal_weighted_strength = 1.0
+
+[sub_resource type="NoiseTexture3D" id="NoiseTexture3D_vyht1"]
+noise = SubResource("FastNoiseLite_vyht1")
+
+[sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_l8v81"]
+ground_horizon_color = Color(0.66224277, 0.6717428, 0.6867428, 1)
+
+[sub_resource type="Sky" id="Sky_vyht1"]
+sky_material = SubResource("ProceduralSkyMaterial_l8v81")
+
+[sub_resource type="Environment" id="Environment_bf3um"]
+background_mode = 2
+sky = SubResource("Sky_vyht1")
+glow_enabled = true
+adjustment_color_correction = SubResource("NoiseTexture3D_vyht1")
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_l8v81"]
+shader = ExtResource("7_vyht1")
+shader_parameter/wave_frequency = 10.0
+shader_parameter/wave_speed = 4.0
+shader_parameter/wave_amplitude = 0.005
+shader_parameter/border_px = 1.0
+shader_parameter/speed = 0.9
+shader_parameter/glow_intensity = 0.5
+shader_parameter/opacity = 0.5
+shader_parameter/fading = 1.0
+shader_parameter/node_size = Vector2(64, 64)
+
+[node name="Root" type="Node" unique_id=1874902670]
+script = ExtResource("1_pq8q7")
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="." unique_id=771951042]
+environment = SubResource("Environment_bf3um")
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="." unique_id=231104760]
+transform = Transform3D(-0.8660254, -0.43301278, 0.25, 0, 0.49999997, 0.86602545, -0.50000006, 0.75, -0.43301266, 0, 0, 0)
+shadow_enabled = true
+
+[node name="CanvasLayer" type="CanvasLayer" parent="." unique_id=235870811]
+
+[node name="ScreenBorder" type="ColorRect" parent="CanvasLayer" unique_id=1563526010]
+material = SubResource("ShaderMaterial_l8v81")
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+mouse_behavior_recursive = 1
+
+[node name="VBoxContainer" type="VBoxContainer" parent="CanvasLayer" unique_id=2053909790]
+offset_left = 10.0
+offset_top = 10.0
+offset_right = 120.0
+offset_bottom = 111.0
+
+[node name="CreateServer" type="Button" parent="CanvasLayer/VBoxContainer" unique_id=918318880]
+layout_mode = 2
+text = "create server"
+
+[node name="JoinServer" type="Button" parent="CanvasLayer/VBoxContainer" unique_id=1232610401]
+layout_mode = 2
+text = "join server"
+
+[node name="SendInformation" type="Button" parent="CanvasLayer/VBoxContainer" unique_id=457885730]
+layout_mode = 2
+text = "send info"
+
+[node name="MultiplayerSpawner" type="MultiplayerSpawner" parent="." unique_id=942129576]
+spawn_path = NodePath("../Players")
+
+[node name="TestMap" parent="." unique_id=2022470389 instance=ExtResource("2_02dfw")]
+
+[node name="Players" type="Node" parent="." unique_id=257373178]
+
+[connection signal="pressed" from="CanvasLayer/VBoxContainer/CreateServer" to="." method="_on_create_server_pressed"]
+[connection signal="pressed" from="CanvasLayer/VBoxContainer/JoinServer" to="." method="_on_join_server_pressed"]
+[connection signal="pressed" from="CanvasLayer/VBoxContainer/SendInformation" to="." method="_on_send_information_pressed"]
