@@ -1,6 +1,6 @@
 [gd_scene format=3 uid="uid://dluwynytm3sbd"]
 
-[ext_resource type="Script" uid="uid://biutnfe033rdr" path="res://overpower/root.gd" id="1_pq8q7"]
+[ext_resource type="Script" uid="uid://biutnfe033rdr" path="res://overpower/server/server.gd" id="1_pq8q7"]
 [ext_resource type="PackedScene" uid="uid://cld8l2hsr56d5" path="res://overpower/maps/test_map/test_map.tscn" id="2_02dfw"]
 [ext_resource type="Shader" uid="uid://def2nm057ygai" path="res://overpower/vfx/border.gdshader" id="7_vyht1"]
 
@@ -22,6 +22,8 @@ sky_material = SubResource("ProceduralSkyMaterial_l8v81")
 background_mode = 2
 sky = SubResource("Sky_vyht1")
 glow_enabled = true
+fog_enabled = true
+fog_light_energy = 3.0
 adjustment_color_correction = SubResource("NoiseTexture3D_vyht1")
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_l8v81"]
@@ -37,6 +39,8 @@ shader_parameter/fading = 1.0
 shader_parameter/node_size = Vector2(64, 64)
 
 [node name="Root" type="Node" unique_id=1874902670]
+
+[node name="Server" type="Node" parent="." unique_id=1603278356]
 script = ExtResource("1_pq8q7")
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="." unique_id=771951042]
@@ -58,21 +62,22 @@ grow_vertical = 2
 mouse_filter = 2
 mouse_behavior_recursive = 1
 
-[node name="VBoxContainer" type="VBoxContainer" parent="CanvasLayer" unique_id=2053909790]
+[node name="MultiplayerMenu" type="VBoxContainer" parent="CanvasLayer" unique_id=2053909790]
+unique_name_in_owner = true
 offset_left = 10.0
 offset_top = 10.0
 offset_right = 120.0
 offset_bottom = 111.0
 
-[node name="CreateServer" type="Button" parent="CanvasLayer/VBoxContainer" unique_id=918318880]
+[node name="HostServer" type="Button" parent="CanvasLayer/MultiplayerMenu" unique_id=918318880]
 layout_mode = 2
-text = "create server"
+text = "host server"
 
-[node name="JoinServer" type="Button" parent="CanvasLayer/VBoxContainer" unique_id=1232610401]
+[node name="JoinServer" type="Button" parent="CanvasLayer/MultiplayerMenu" unique_id=1232610401]
 layout_mode = 2
 text = "join server"
 
-[node name="SendInformation" type="Button" parent="CanvasLayer/VBoxContainer" unique_id=457885730]
+[node name="SendInformation" type="Button" parent="CanvasLayer/MultiplayerMenu" unique_id=457885730]
 layout_mode = 2
 text = "send info"
 
@@ -82,7 +87,8 @@ spawn_path = NodePath("../Players")
 [node name="TestMap" parent="." unique_id=2022470389 instance=ExtResource("2_02dfw")]
 
 [node name="Players" type="Node" parent="." unique_id=257373178]
+unique_name_in_owner = true
 
-[connection signal="pressed" from="CanvasLayer/VBoxContainer/CreateServer" to="." method="_on_create_server_pressed"]
-[connection signal="pressed" from="CanvasLayer/VBoxContainer/JoinServer" to="." method="_on_join_server_pressed"]
-[connection signal="pressed" from="CanvasLayer/VBoxContainer/SendInformation" to="." method="_on_send_information_pressed"]
+[connection signal="pressed" from="CanvasLayer/MultiplayerMenu/HostServer" to="Server" method="_on_host_server_pressed"]
+[connection signal="pressed" from="CanvasLayer/MultiplayerMenu/JoinServer" to="Server" method="_on_join_server_pressed"]
+[connection signal="pressed" from="CanvasLayer/MultiplayerMenu/SendInformation" to="Server" method="_on_send_information_pressed"]
