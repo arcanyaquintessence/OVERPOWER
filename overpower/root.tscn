@@ -1,30 +1,9 @@
 [gd_scene format=3 uid="uid://dluwynytm3sbd"]
 
 [ext_resource type="Script" uid="uid://biutnfe033rdr" path="res://overpower/server/server.gd" id="1_pq8q7"]
+[ext_resource type="PackedScene" uid="uid://cyhohalyb6pu3" path="res://overpower/environment/sky/sky.tscn" id="1_wyelt"]
 [ext_resource type="PackedScene" uid="uid://cld8l2hsr56d5" path="res://overpower/maps/test_map/test_map.tscn" id="2_02dfw"]
 [ext_resource type="Shader" uid="uid://def2nm057ygai" path="res://overpower/vfx/border.gdshader" id="7_vyht1"]
-
-[sub_resource type="FastNoiseLite" id="FastNoiseLite_vyht1"]
-seed = -172
-frequency = 0.3201
-fractal_weighted_strength = 1.0
-
-[sub_resource type="NoiseTexture3D" id="NoiseTexture3D_vyht1"]
-noise = SubResource("FastNoiseLite_vyht1")
-
-[sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_l8v81"]
-ground_horizon_color = Color(0.66224277, 0.6717428, 0.6867428, 1)
-
-[sub_resource type="Sky" id="Sky_vyht1"]
-sky_material = SubResource("ProceduralSkyMaterial_l8v81")
-
-[sub_resource type="Environment" id="Environment_bf3um"]
-background_mode = 2
-sky = SubResource("Sky_vyht1")
-glow_enabled = true
-fog_enabled = true
-fog_light_energy = 3.0
-adjustment_color_correction = SubResource("NoiseTexture3D_vyht1")
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_l8v81"]
 shader = ExtResource("7_vyht1")
@@ -40,15 +19,10 @@ shader_parameter/node_size = Vector2(64, 64)
 
 [node name="Root" type="Node" unique_id=1874902670]
 
+[node name="Sky" parent="." unique_id=1754647677 instance=ExtResource("1_wyelt")]
+
 [node name="Server" type="Node" parent="." unique_id=1603278356]
 script = ExtResource("1_pq8q7")
-
-[node name="WorldEnvironment" type="WorldEnvironment" parent="." unique_id=771951042]
-environment = SubResource("Environment_bf3um")
-
-[node name="DirectionalLight3D" type="DirectionalLight3D" parent="." unique_id=231104760]
-transform = Transform3D(-0.8660254, -0.43301278, 0.25, 0, 0.49999997, 0.86602545, -0.50000006, 0.75, -0.43301266, 0, 0, 0)
-shadow_enabled = true
 
 [node name="CanvasLayer" type="CanvasLayer" parent="." unique_id=235870811]
 
