@@ -1,0 +1,208 @@
+[gd_scene format=3 uid="uid://bwgtw7oipdhcs"]
+
+[ext_resource type="PackedScene" uid="uid://cx2eeep7jvbcg" path="res://overpower/maps/test_map/main_menu_map.tscn" id="1_6qss3"]
+[ext_resource type="Texture2D" uid="uid://b7adpvxqfcfjj" path="res://core/imgs/full_title.png" id="2_gqryq"]
+[ext_resource type="FontFile" uid="uid://2bgwngoiiaau" path="res://core/fonts/friends_n_fellows.otf" id="3_ybrdn"]
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_ybrdn"]
+lifetime_randomness = 0.5
+particle_flag_disable_z = true
+gravity = Vector3(0, 20, 0)
+radial_accel_min = -113.8
+radial_accel_max = 123.49999
+tangential_accel_min = -100.0
+tangential_accel_max = 99.99999
+turbulence_noise_strength = 12.7
+
+[sub_resource type="Gradient" id="Gradient_ybrdn"]
+colors = PackedColorArray(1, 0, 0, 1, 1, 1, 1, 1)
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_3acyq"]
+gradient = SubResource("Gradient_ybrdn")
+
+[sub_resource type="Environment" id="Environment_a876q"]
+background_mode = 1
+background_color = Color(1, 1, 1, 1)
+background_energy_multiplier = 16.0
+adjustment_enabled = true
+adjustment_brightness = 2.0
+adjustment_color_correction = SubResource("GradientTexture1D_3acyq")
+
+[sub_resource type="World3D" id="World3D_gqryq"]
+environment = SubResource("Environment_a876q")
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_3acyq"]
+bg_color = Color(0.062322427, 0.05033736, 0.10546875, 1)
+border_width_left = 16
+border_width_top = 16
+border_width_right = 16
+border_width_bottom = 16
+border_color = Color(1, 1, 1, 1)
+border_blend = true
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_h1n2h"]
+draw_center = false
+border_width_left = 8
+border_width_top = 8
+border_width_right = 8
+border_width_bottom = 8
+border_color = Color(1, 1, 1, 1)
+border_blend = true
+shadow_size = 12
+
+[node name="MainMenu" type="Control" unique_id=1722496058]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Particles" type="Control" parent="." unique_id=302945996]
+z_index = -2
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -20.0
+offset_top = -20.0
+offset_right = 20.0
+offset_bottom = 20.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="GPUParticles2D" type="GPUParticles2D" parent="Particles" unique_id=1241602062]
+amount = 50
+sub_emitter = NodePath("../GPUParticles2D2")
+lifetime = 8.0
+explosiveness = 1.0
+randomness = 1.0
+trail_enabled = true
+trail_lifetime = 0.5
+process_material = SubResource("ParticleProcessMaterial_ybrdn")
+
+[node name="GPUParticles2D2" type="GPUParticles2D" parent="Particles" unique_id=1363195335]
+amount = 50
+lifetime = 10.0
+explosiveness = 1.0
+randomness = 1.0
+trail_enabled = true
+trail_lifetime = 0.2
+process_material = SubResource("ParticleProcessMaterial_ybrdn")
+
+[node name="Tree" type="SubViewportContainer" parent="." unique_id=223586397]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_top = -17.985
+offset_bottom = -15.984985
+grow_horizontal = 2
+grow_vertical = 2
+pivot_offset_ratio = Vector2(0.5, 1)
+stretch = true
+
+[node name="SubViewport" type="SubViewport" parent="Tree" unique_id=613513540]
+world_3d = SubResource("World3D_gqryq")
+transparent_bg = true
+handle_input_locally = false
+size = Vector2i(1152, 650)
+render_target_update_mode = 4
+
+[node name="MainMenuMap" parent="Tree/SubViewport" unique_id=2022470389 instance=ExtResource("1_6qss3")]
+
+[node name="Camera3D" type="Camera3D" parent="Tree/SubViewport" unique_id=937003704]
+transform = Transform3D(1, 0, 0, 0, 0.9238795, -0.38268346, 0, 0.38268346, 0.9238795, 0, -1, 13)
+
+[node name="TextureRect" type="TextureRect" parent="." unique_id=577678729]
+layout_mode = 1
+offset_left = 34.0
+offset_top = -27.0
+offset_right = 434.0
+offset_bottom = 306.33337
+pivot_offset_ratio = Vector2(0.5, 0.5)
+texture = ExtResource("2_gqryq")
+expand_mode = 5
+stretch_mode = 5
+
+[node name="Background" type="Panel" parent="." unique_id=1326801203]
+z_index = -5
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_3acyq")
+
+[node name="Inner" type="Panel" parent="Background" unique_id=1876310019]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+scale = Vector2(0.95, 0.95)
+pivot_offset_ratio = Vector2(0.5, 0.5)
+theme_override_styles/panel = SubResource("StyleBoxFlat_h1n2h")
+
+[node name="Label" type="Label" parent="." unique_id=1419565673]
+layout_mode = 1
+anchors_preset = 14
+anchor_top = 0.5
+anchor_right = 1.0
+anchor_bottom = 0.5
+offset_left = 161.0
+offset_top = -312.0
+offset_right = 161.0
+offset_bottom = -99.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_colors/font_color = Color(0.34504285, 0.36958465, 0.4627451, 1)
+theme_override_fonts/font = ExtResource("3_ybrdn")
+theme_override_font_sizes/font_size = 55
+text = "prealpha v0.0.1 
+:D"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="VBoxContainer" type="VBoxContainer" parent="." unique_id=1491245866]
+layout_mode = 1
+anchors_preset = 12
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_top = -248.0
+offset_bottom = -51.99951
+grow_horizontal = 2
+grow_vertical = 0
+scale = Vector2(0.75, 0.75)
+pivot_offset_ratio = Vector2(0.5, 1)
+theme_override_constants/separation = 8
+
+[node name="Singleplayer" type="Button" parent="VBoxContainer" unique_id=1318351130]
+layout_mode = 2
+size_flags_vertical = 3
+theme_override_fonts/font = ExtResource("3_ybrdn")
+theme_override_font_sizes/font_size = 40
+action_mode = 0
+text = "Singleplayer"
+
+[node name="Multiplayer" type="Button" parent="VBoxContainer" unique_id=1525979922]
+layout_mode = 2
+size_flags_vertical = 3
+theme_override_fonts/font = ExtResource("3_ybrdn")
+theme_override_font_sizes/font_size = 40
+action_mode = 0
+text = "Multiplayer
+"
+
+[node name="Quit" type="Button" parent="VBoxContainer" unique_id=99084445]
+layout_mode = 2
+size_flags_vertical = 3
+theme_override_fonts/font = ExtResource("3_ybrdn")
+theme_override_font_sizes/font_size = 40
+action_mode = 0
+text = "Quit"

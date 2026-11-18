@@ -38,7 +38,7 @@ spring_length = 5.0
 
 [node name="Camera3D" type="Camera3D" parent="Head/CameraSpring" unique_id=1090150993]
 unique_name_in_owner = true
-cull_mask = 1048574
+cull_mask = 1048573
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="." unique_id=94226297]
 shape = SubResource("CapsuleShape3D_pyidc")

@@ -19,10 +19,10 @@ shader_parameter/node_size = Vector2(64, 64)
 
 [node name="Root" type="Node" unique_id=1874902670]
 
-[node name="Sky" parent="." unique_id=1754647677 instance=ExtResource("1_wyelt")]
-
-[node name="Server" type="Node" parent="." unique_id=1603278356]
+[node name="Server" type="Node" parent="." unique_id=1826381784]
 script = ExtResource("1_pq8q7")
+
+[node name="Sky" parent="." unique_id=1754647677 instance=ExtResource("1_wyelt")]
 
 [node name="CanvasLayer" type="CanvasLayer" parent="." unique_id=235870811]
 

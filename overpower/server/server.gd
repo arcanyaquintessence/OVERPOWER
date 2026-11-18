@@ -69,7 +69,7 @@ func ping():
 	pong.rpc_id(1)
 
 func create_plr(id:int)->void:
-	var plr = PLAYER.instantiate()
+	var plr:CharacterBody3D = PLAYER.instantiate()
 	plr.name = str(id)
 	plr.set_multiplayer_authority(id)
 	%Players.add_child(plr)
