@@ -1,0 +1,18 @@
+[gd_resource type="QuadMesh" format=3 uid="uid://edv2rcfke81s"]
+
+[ext_resource type="Shader" uid="uid://cyan0a0pwbg17" path="res://overpower/environment/tree/leaves.gdshader" id="1_8wjvy"]
+[ext_resource type="Texture2D" uid="uid://cf5kpsh68cby0" path="res://overpower/environment/tree/leaves.png" id="2_x44nv"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_ayw5w"]
+render_priority = 0
+shader = ExtResource("1_8wjvy")
+shader_parameter/main_texture = ExtResource("2_x44nv")
+shader_parameter/color = Color(0.14658119, 0.21333958, 0.921875, 1)
+shader_parameter/color2 = Color(0.35813957, 1, 0.80930233, 1)
+shader_parameter/noiseScale = 20.0
+shader_parameter/sway_speed = 1.0
+shader_parameter/sway_strength = 0.05
+shader_parameter/sway_phase_len = 8.0
+
+[resource]
+material = SubResource("ShaderMaterial_ayw5w")
