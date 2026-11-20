@@ -53,6 +53,7 @@ surface_material_override/0 = SubResource("StandardMaterial3D_60b5w")
 
 [node name="Grass" type="MultiMeshInstance3D" parent="GrassArea" unique_id=2111381739]
 transform = Transform3D(0.7071069, 0, -0.7071069, 0, 1, 0, 0.7071069, 0, 0.7071069, 0, -0.41000032, 0)
+cast_shadow = 0
 multimesh = SubResource("MultiMesh_m8qr8")
 
 [node name="Tree" type="MeshInstance3D" parent="." unique_id=1026173821]
@@ -60,4 +61,5 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -1.825, 0)
 mesh = ExtResource("3_5e227")
 
 [node name="Leaves" type="MultiMeshInstance3D" parent="Tree" unique_id=152478969]
+cast_shadow = 0
 multimesh = SubResource("MultiMesh_ji34m")

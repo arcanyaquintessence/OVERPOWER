@@ -1,6 +1,6 @@
 shader_type spatial;
 
-render_mode shadows_disabled, depth_draw_always, alpha_to_coverage;
+render_mode unshaded, depth_draw_always, alpha_to_coverage;
 
 uniform sampler2D main_texture;
 
