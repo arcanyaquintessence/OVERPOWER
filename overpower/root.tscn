@@ -3,6 +3,7 @@
 [ext_resource type="Script" uid="uid://biutnfe033rdr" path="res://overpower/server/server.gd" id="1_pq8q7"]
 [ext_resource type="PackedScene" uid="uid://cyhohalyb6pu3" path="res://overpower/environment/sky/sky.tscn" id="1_wyelt"]
 [ext_resource type="PackedScene" uid="uid://cld8l2hsr56d5" path="res://overpower/maps/test_map/test_map.tscn" id="2_02dfw"]
+[ext_resource type="Script" uid="uid://d00ejbbeer0l1" path="res://overpower/environment/tree/tree.gd" id="5_mpt3s"]
 [ext_resource type="Shader" uid="uid://def2nm057ygai" path="res://overpower/vfx/border.gdshader" id="7_vyht1"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_l8v81"]
@@ -16,6 +17,8 @@ shader_parameter/glow_intensity = 0.5
 shader_parameter/opacity = 0.5
 shader_parameter/fading = 1.0
 shader_parameter/node_size = Vector2(64, 64)
+
+[sub_resource type="ArrayMesh" id="ArrayMesh_mpt3s"]
 
 [node name="Root" type="Node" unique_id=1874902670]
 
@@ -62,6 +65,12 @@ spawn_path = NodePath("../Players")
 
 [node name="Players" type="Node" parent="." unique_id=257373178]
 unique_name_in_owner = true
+
+[node name="Tree" type="Node3D" parent="." unique_id=414871352]
+script = ExtResource("5_mpt3s")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Tree" unique_id=1706027777]
+mesh = SubResource("ArrayMesh_mpt3s")
 
 [connection signal="pressed" from="CanvasLayer/MultiplayerMenu/HostServer" to="Server" method="_on_host_server_pressed"]
 [connection signal="pressed" from="CanvasLayer/MultiplayerMenu/JoinServer" to="Server" method="_on_join_server_pressed"]
