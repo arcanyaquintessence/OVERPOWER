@@ -1,0 +1,89 @@
+[gd_scene format=3 uid="uid://dluwynytm3sbd"]
+
+[ext_resource type="Script" uid="uid://l4qq7grfv8ly" path="res://overpower/root/root.gd" id="1_3ilhh"]
+[ext_resource type="Script" uid="uid://biutnfe033rdr" path="res://overpower/server/server.gd" id="1_wa4nm"]
+[ext_resource type="PackedScene" uid="uid://cyhohalyb6pu3" path="res://overpower/environment/sky/sky.tscn" id="2_3ilhh"]
+[ext_resource type="Script" uid="uid://cdu5tlyk72uu4" path="res://addons/gecs/ecs/world.gd" id="2_tksp4"]
+[ext_resource type="Shader" uid="uid://def2nm057ygai" path="res://overpower/vfx/border.gdshader" id="3_tksp4"]
+[ext_resource type="Script" uid="uid://comrtfwodivtx" path="res://overpower/systems/s_health.gd" id="3_vqrh7"]
+[ext_resource type="PackedScene" uid="uid://cld8l2hsr56d5" path="res://overpower/maps/test_map/test_map.tscn" id="4_vqrh7"]
+[ext_resource type="Script" uid="uid://d00ejbbeer0l1" path="res://overpower/environment/tree/tree.gd" id="5_xx2qm"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_l8v81"]
+shader = ExtResource("3_tksp4")
+shader_parameter/wave_frequency = 10.0
+shader_parameter/wave_speed = 4.0
+shader_parameter/wave_amplitude = 0.005
+shader_parameter/border_px = 1.0
+shader_parameter/speed = 0.9
+shader_parameter/glow_intensity = 0.5
+shader_parameter/opacity = 0.5
+shader_parameter/fading = 1.0
+shader_parameter/node_size = Vector2(64, 64)
+
+[sub_resource type="ArrayMesh" id="ArrayMesh_mpt3s"]
+
+[node name="Root" type="Node" unique_id=1874902670]
+script = ExtResource("1_3ilhh")
+
+[node name="World" type="Node" parent="." unique_id=920996375]
+script = ExtResource("2_tksp4")
+entity_nodes_root = NodePath("Entities")
+system_nodes_root = NodePath("Systems")
+metadata/_custom_type_script = "uid://cdu5tlyk72uu4"
+
+[node name="Entities" type="Node" parent="World" unique_id=1491456806]
+
+[node name="Systems" type="Node" parent="World" unique_id=1543571081]
+
+[node name="S_Health" type="Node" parent="World/Systems" unique_id=2109300642]
+script = ExtResource("3_vqrh7")
+metadata/_custom_type_script = "uid://comrtfwodivtx"
+
+[node name="Server" type="Node" parent="." unique_id=1826381784]
+script = ExtResource("1_wa4nm")
+
+[node name="Sky" parent="." unique_id=1754647677 instance=ExtResource("2_3ilhh")]
+
+[node name="CanvasLayer" type="CanvasLayer" parent="." unique_id=235870811]
+
+[node name="ScreenBorder" type="ColorRect" parent="CanvasLayer" unique_id=1563526010]
+material = SubResource("ShaderMaterial_l8v81")
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+mouse_behavior_recursive = 1
+
+[node name="MultiplayerMenu" type="VBoxContainer" parent="CanvasLayer" unique_id=2053909790]
+unique_name_in_owner = true
+offset_left = 10.0
+offset_top = 10.0
+offset_right = 120.0
+offset_bottom = 111.0
+
+[node name="HostServer" type="Button" parent="CanvasLayer/MultiplayerMenu" unique_id=918318880]
+layout_mode = 2
+text = "host server"
+
+[node name="JoinServer" type="Button" parent="CanvasLayer/MultiplayerMenu" unique_id=1232610401]
+layout_mode = 2
+text = "join server"
+
+[node name="SendInformation" type="Button" parent="CanvasLayer/MultiplayerMenu" unique_id=457885730]
+layout_mode = 2
+text = "send info"
+
+[node name="TestMap" parent="." unique_id=2022470389 instance=ExtResource("4_vqrh7")]
+
+[node name="Tree" type="Node3D" parent="." unique_id=414871352]
+script = ExtResource("5_xx2qm")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Tree" unique_id=1706027777]
+mesh = SubResource("ArrayMesh_mpt3s")
+
+[connection signal="pressed" from="CanvasLayer/MultiplayerMenu/HostServer" to="Server" method="_on_host_server_pressed"]
+[connection signal="pressed" from="CanvasLayer/MultiplayerMenu/JoinServer" to="Server" method="_on_join_server_pressed"]
+[connection signal="pressed" from="CanvasLayer/MultiplayerMenu/SendInformation" to="Server" method="_on_send_information_pressed"]

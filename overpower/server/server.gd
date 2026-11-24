@@ -4,7 +4,7 @@ const PORT:int = 255
 const MAX_CLIENTS:int = 8
 const ADDRESS:String = "localhost"
 
-const PLAYER = preload("res://overpower/entities/plr/plr.tscn")
+const PLAYER = preload("res://overpower/player/e_player.tscn")
 var connected = false
 
 @onready var multiplayer_menu: VBoxContainer = %MultiplayerMenu
@@ -69,7 +69,7 @@ func ping():
 	pong.rpc_id(1)
 
 func create_plr(id:int)->void:
-	var plr:CharacterBody3D = PLAYER.instantiate()
+	var plr:Player = PLAYER.instantiate()
 	plr.name = str(id)
 	plr.set_multiplayer_authority(id)
-	%Players.add_child(plr)
+	ECS.world.add_entity(plr)

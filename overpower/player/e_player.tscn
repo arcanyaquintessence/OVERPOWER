@@ -1,0 +1,48 @@
+[gd_scene format=3 uid="uid://dh8l57ef67rc0"]
+
+[ext_resource type="Script" uid="uid://bew0xokohe4g7" path="res://overpower/player/e_player.gd" id="1_b24qw"]
+[ext_resource type="FontFile" uid="uid://2bgwngoiiaau" path="res://core/fonts/friends_n_fellows.otf" id="4_fcps2"]
+
+[sub_resource type="SceneReplicationConfig" id="SceneReplicationConfig_onrkg"]
+properties/0/path = NodePath(".:position")
+properties/0/spawn = true
+properties/0/replication_mode = 1
+
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_pyidc"]
+
+[sub_resource type="CapsuleMesh" id="CapsuleMesh_66mce"]
+
+[node name="Player" type="CharacterBody3D" unique_id=806521731]
+script = ExtResource("1_b24qw")
+
+[node name="Nametag" type="Label3D" parent="." unique_id=190546901]
+unique_name_in_owner = true
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.25, 0)
+billboard = 1
+double_sided = false
+texture_filter = 0
+modulate = Color(1, 1, 1, 0.5882353)
+outline_modulate = Color(0, 0, 0, 0.627451)
+text = "Player456"
+font = ExtResource("4_fcps2")
+font_size = 64
+
+[node name="MultiplayerSynchronizer" type="MultiplayerSynchronizer" parent="." unique_id=1102201040]
+replication_config = SubResource("SceneReplicationConfig_onrkg")
+
+[node name="Head" type="Node3D" parent="." unique_id=1342715855]
+unique_name_in_owner = true
+
+[node name="CameraSpring" type="SpringArm3D" parent="Head" unique_id=1362139123]
+spring_length = 5.0
+
+[node name="Camera3D" type="Camera3D" parent="Head/CameraSpring" unique_id=1090150993]
+unique_name_in_owner = true
+cull_mask = 1048573
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="." unique_id=94226297]
+shape = SubResource("CapsuleShape3D_pyidc")
+
+[node name="Model" type="MeshInstance3D" parent="." unique_id=1343028144]
+unique_name_in_owner = true
+mesh = SubResource("CapsuleMesh_66mce")

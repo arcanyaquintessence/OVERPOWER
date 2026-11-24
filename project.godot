@@ -19,10 +19,23 @@ run/low_processor_mode_sleep_usec=40000
 boot_splash/image="uid://b7adpvxqfcfjj"
 config/icon="uid://dnxtb3chlol6x"
 
+[autoload]
+
+CrabbyConsole="*res://addons/crabbyconsole/scenes/autoload/console.tscn"
+ECS="*res://addons/gecs/ecs/ecs.gd"
+
 [display]
 
 window/stretch/mode="canvas_items"
 window/stretch/aspect="expand"
+
+[editor_plugins]
+
+enabled=PackedStringArray("res://addons/anthonyec.camera_preview/plugin.cfg", "res://addons/at-icons/plugin.cfg", "res://addons/crabbyconsole/plugin.cfg", "res://addons/gecs/plugin.cfg")
+
+[gecs]
+
+settings/debug_mode=true
 
 [gui]
 
