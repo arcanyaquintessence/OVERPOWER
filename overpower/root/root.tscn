@@ -4,10 +4,13 @@
 [ext_resource type="Script" uid="uid://biutnfe033rdr" path="res://overpower/server/server.gd" id="1_wa4nm"]
 [ext_resource type="PackedScene" uid="uid://cyhohalyb6pu3" path="res://overpower/environment/sky/sky.tscn" id="2_3ilhh"]
 [ext_resource type="Script" uid="uid://cdu5tlyk72uu4" path="res://addons/gecs/ecs/world.gd" id="2_tksp4"]
+[ext_resource type="Script" uid="uid://b3vi2ingux88g" path="res://addons/gecs/lib/system_group.gd" id="3_dnh0u"]
 [ext_resource type="Shader" uid="uid://def2nm057ygai" path="res://overpower/vfx/border.gdshader" id="3_tksp4"]
-[ext_resource type="Script" uid="uid://comrtfwodivtx" path="res://overpower/systems/s_health.gd" id="3_vqrh7"]
+[ext_resource type="Script" uid="uid://comrtfwodivtx" path="res://overpower/health/s_health.gd" id="3_vqrh7"]
+[ext_resource type="Script" uid="uid://bn7pftln0qw2x" path="res://overpower/player/s_player_input.gd" id="4_pf0c1"]
 [ext_resource type="PackedScene" uid="uid://cld8l2hsr56d5" path="res://overpower/maps/test_map/test_map.tscn" id="4_vqrh7"]
 [ext_resource type="Script" uid="uid://d00ejbbeer0l1" path="res://overpower/environment/tree/tree.gd" id="5_xx2qm"]
+[ext_resource type="Script" uid="uid://16f377ic4bfi" path="res://overpower/player/s_player_movement.gd" id="6_aeego"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_l8v81"]
 shader = ExtResource("3_tksp4")
@@ -36,9 +39,38 @@ metadata/_custom_type_script = "uid://cdu5tlyk72uu4"
 
 [node name="Systems" type="Node" parent="World" unique_id=1543571081]
 
-[node name="S_Health" type="Node" parent="World/Systems" unique_id=2109300642]
+[node name="input" type="Node" parent="World/Systems" unique_id=855124829]
+script = ExtResource("3_dnh0u")
+metadata/_custom_type_script = "uid://b3vi2ingux88g"
+
+[node name="PlayerInputSystem" type="Node" parent="World/Systems/input" unique_id=1203531377]
+script = ExtResource("4_pf0c1")
+group = &"input"
+metadata/_custom_type_script = "uid://bn7pftln0qw2x"
+
+[node name="gameplay" type="Node" parent="World/Systems" unique_id=1242320925]
+script = ExtResource("3_dnh0u")
+metadata/_custom_type_script = "uid://b3vi2ingux88g"
+
+[node name="HealthSystem" type="Node" parent="World/Systems/gameplay" unique_id=2109300642]
 script = ExtResource("3_vqrh7")
+group = &"gameplay"
 metadata/_custom_type_script = "uid://comrtfwodivtx"
+
+[node name="physics" type="Node" parent="World/Systems" unique_id=1329957066]
+script = ExtResource("3_dnh0u")
+metadata/_custom_type_script = "uid://b3vi2ingux88g"
+
+[node name="PlayerMovementSystem" type="Node" parent="World/Systems/physics" unique_id=559986395]
+script = ExtResource("6_aeego")
+group = &"physics"
+process_empty = null
+active = null
+parallel_processing = null
+parallel_threshold = null
+command_buffer_flush_mode = null
+performance_monitor = null
+metadata/_custom_type_script = "uid://16f377ic4bfi"
 
 [node name="Server" type="Node" parent="." unique_id=1826381784]
 script = ExtResource("1_wa4nm")

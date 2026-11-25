@@ -1,7 +1,23 @@
 [gd_scene format=3 uid="uid://dh8l57ef67rc0"]
 
 [ext_resource type="Script" uid="uid://bew0xokohe4g7" path="res://overpower/player/e_player.gd" id="1_b24qw"]
+[ext_resource type="Script" uid="uid://b6k13gc2m4e5s" path="res://addons/gecs/ecs/component.gd" id="2_rybhx"]
+[ext_resource type="Script" uid="uid://dfkbl03dh43tv" path="res://overpower/player/c_player.gd" id="3_fcps2"]
 [ext_resource type="FontFile" uid="uid://2bgwngoiiaau" path="res://core/fonts/friends_n_fellows.otf" id="4_fcps2"]
+[ext_resource type="Script" uid="uid://c4hcrw2x8b1yg" path="res://overpower/health/c_health.gd" id="4_k5n2a"]
+[ext_resource type="Script" uid="uid://dh71qsx5x0a6g" path="res://overpower/movement/c_move_speed.gd" id="5_2msdw"]
+
+[sub_resource type="Resource" id="Resource_aeego"]
+script = ExtResource("3_fcps2")
+metadata/_custom_type_script = "uid://dfkbl03dh43tv"
+
+[sub_resource type="Resource" id="Resource_pf0c1"]
+script = ExtResource("4_k5n2a")
+metadata/_custom_type_script = "uid://c4hcrw2x8b1yg"
+
+[sub_resource type="Resource" id="Resource_7wldj"]
+script = ExtResource("5_2msdw")
+metadata/_custom_type_script = "uid://dh71qsx5x0a6g"
 
 [sub_resource type="SceneReplicationConfig" id="SceneReplicationConfig_onrkg"]
 properties/0/path = NodePath(".:position")
@@ -14,6 +30,7 @@ properties/0/replication_mode = 1
 
 [node name="Player" type="CharacterBody3D" unique_id=806521731]
 script = ExtResource("1_b24qw")
+component_resources = Array[ExtResource("2_rybhx")]([SubResource("Resource_aeego"), SubResource("Resource_pf0c1"), SubResource("Resource_7wldj")])
 
 [node name="Nametag" type="Label3D" parent="." unique_id=190546901]
 unique_name_in_owner = true
