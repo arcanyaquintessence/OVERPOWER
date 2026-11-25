@@ -5,7 +5,9 @@
 [ext_resource type="Script" uid="uid://dfkbl03dh43tv" path="res://overpower/player/c_player.gd" id="3_fcps2"]
 [ext_resource type="FontFile" uid="uid://2bgwngoiiaau" path="res://core/fonts/friends_n_fellows.otf" id="4_fcps2"]
 [ext_resource type="Script" uid="uid://c4hcrw2x8b1yg" path="res://overpower/health/c_health.gd" id="4_k5n2a"]
-[ext_resource type="Script" uid="uid://dh71qsx5x0a6g" path="res://overpower/movement/c_move_speed.gd" id="5_2msdw"]
+[ext_resource type="Script" uid="uid://dh71qsx5x0a6g" path="res://overpower/movement/c_ground_speed.gd" id="5_2msdw"]
+[ext_resource type="Script" uid="uid://bpm2robjtn3hf" path="res://overpower/movement/c_jump_speed.gd" id="6_fcps2"]
+[ext_resource type="Script" uid="uid://b03vy3ptp3ide" path="res://overpower/movement/c_air_speed.gd" id="6_k5n2a"]
 
 [sub_resource type="Resource" id="Resource_aeego"]
 script = ExtResource("3_fcps2")
@@ -19,6 +21,14 @@ metadata/_custom_type_script = "uid://c4hcrw2x8b1yg"
 script = ExtResource("5_2msdw")
 metadata/_custom_type_script = "uid://dh71qsx5x0a6g"
 
+[sub_resource type="Resource" id="Resource_fcps2"]
+script = ExtResource("6_k5n2a")
+metadata/_custom_type_script = "uid://b03vy3ptp3ide"
+
+[sub_resource type="Resource" id="Resource_k5n2a"]
+script = ExtResource("6_fcps2")
+metadata/_custom_type_script = "uid://bpm2robjtn3hf"
+
 [sub_resource type="SceneReplicationConfig" id="SceneReplicationConfig_onrkg"]
 properties/0/path = NodePath(".:position")
 properties/0/spawn = true
@@ -29,8 +39,10 @@ properties/0/replication_mode = 1
 [sub_resource type="CapsuleMesh" id="CapsuleMesh_66mce"]
 
 [node name="Player" type="CharacterBody3D" unique_id=806521731]
+floor_stop_on_slope = false
+platform_on_leave = 1
 script = ExtResource("1_b24qw")
-component_resources = Array[ExtResource("2_rybhx")]([SubResource("Resource_aeego"), SubResource("Resource_pf0c1"), SubResource("Resource_7wldj")])
+component_resources = Array[ExtResource("2_rybhx")]([SubResource("Resource_aeego"), SubResource("Resource_pf0c1"), SubResource("Resource_7wldj"), SubResource("Resource_fcps2"), SubResource("Resource_k5n2a")])
 
 [node name="Nametag" type="Label3D" parent="." unique_id=190546901]
 unique_name_in_owner = true
@@ -50,10 +62,11 @@ replication_config = SubResource("SceneReplicationConfig_onrkg")
 [node name="Head" type="Node3D" parent="." unique_id=1342715855]
 unique_name_in_owner = true
 
-[node name="CameraSpring" type="SpringArm3D" parent="Head" unique_id=1362139123]
+[node name="CameraArm" type="SpringArm3D" parent="Head" unique_id=1362139123]
+unique_name_in_owner = true
 spring_length = 5.0
 
-[node name="Camera3D" type="Camera3D" parent="Head/CameraSpring" unique_id=1090150993]
+[node name="Camera3D" type="Camera3D" parent="Head/CameraArm" unique_id=1090150993]
 unique_name_in_owner = true
 cull_mask = 1048573
 

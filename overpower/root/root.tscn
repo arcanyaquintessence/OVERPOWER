@@ -45,7 +45,6 @@ metadata/_custom_type_script = "uid://b3vi2ingux88g"
 
 [node name="PlayerInputSystem" type="Node" parent="World/Systems/input" unique_id=1203531377]
 script = ExtResource("4_pf0c1")
-group = &"input"
 metadata/_custom_type_script = "uid://bn7pftln0qw2x"
 
 [node name="gameplay" type="Node" parent="World/Systems" unique_id=1242320925]
@@ -64,12 +63,6 @@ metadata/_custom_type_script = "uid://b3vi2ingux88g"
 [node name="PlayerMovementSystem" type="Node" parent="World/Systems/physics" unique_id=559986395]
 script = ExtResource("6_aeego")
 group = &"physics"
-process_empty = null
-active = null
-parallel_processing = null
-parallel_threshold = null
-command_buffer_flush_mode = null
-performance_monitor = null
 metadata/_custom_type_script = "uid://16f377ic4bfi"
 
 [node name="Server" type="Node" parent="." unique_id=1826381784]
