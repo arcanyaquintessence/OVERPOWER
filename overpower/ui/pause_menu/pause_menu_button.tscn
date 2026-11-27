@@ -1,0 +1,61 @@
+[gd_scene format=3 uid="uid://b3jhs1nsov33n"]
+
+[ext_resource type="Shader" uid="uid://c27yroyiccr5w" path="res://overpower/vfx/ui_skew.gdshader" id="1_lgmr7"]
+[ext_resource type="Texture2D" uid="uid://dlmgg41n8a21g" path="res://core/imgs/titleLine.png" id="1_li8dh"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_li8dh"]
+shader = ExtResource("1_lgmr7")
+shader_parameter/topleft_x = 0.0
+shader_parameter/topleft_y = 0.0
+shader_parameter/topright_x = 1.0
+shader_parameter/topright_y = 0.0
+shader_parameter/bottomleft_x = 0.10000005224999997
+shader_parameter/bottomleft_y = 1.0
+shader_parameter/bottomright_x = 1.0
+shader_parameter/bottomright_y = 1.0
+
+[node name="PauseMenuButton" type="Control" unique_id=107602751]
+layout_mode = 3
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -200.0
+offset_top = -100.0
+offset_right = 200.0
+offset_bottom = 100.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Button" type="Button" parent="." unique_id=855032664]
+material = SubResource("ShaderMaterial_li8dh")
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -50.0
+offset_top = -34.0
+offset_right = 50.0
+offset_bottom = 66.0
+grow_horizontal = 2
+grow_vertical = 2
+rotation = -0.034906585
+theme_override_font_sizes/font_size = 64
+text = "Resume"
+flat = true
+
+[node name="TextureRect" type="TextureRect" parent="." unique_id=1890113213]
+use_parent_material = true
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 31.385002
+offset_top = 59.642838
+offset_right = -8.61499
+offset_bottom = -15.357162
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("1_li8dh")
+expand_mode = 5

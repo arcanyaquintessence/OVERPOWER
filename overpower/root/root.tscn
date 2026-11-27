@@ -1,16 +1,34 @@
 [gd_scene format=3 uid="uid://dluwynytm3sbd"]
 
 [ext_resource type="Script" uid="uid://l4qq7grfv8ly" path="res://overpower/root/root.gd" id="1_3ilhh"]
-[ext_resource type="Script" uid="uid://biutnfe033rdr" path="res://overpower/server/server.gd" id="1_wa4nm"]
 [ext_resource type="PackedScene" uid="uid://cyhohalyb6pu3" path="res://overpower/environment/sky/sky.tscn" id="2_3ilhh"]
 [ext_resource type="Script" uid="uid://cdu5tlyk72uu4" path="res://addons/gecs/ecs/world.gd" id="2_tksp4"]
+[ext_resource type="PackedScene" uid="uid://dh8l57ef67rc0" path="res://overpower/player/e_player.tscn" id="3_aeego"]
 [ext_resource type="Script" uid="uid://b3vi2ingux88g" path="res://addons/gecs/lib/system_group.gd" id="3_dnh0u"]
-[ext_resource type="Shader" uid="uid://def2nm057ygai" path="res://overpower/vfx/border.gdshader" id="3_tksp4"]
+[ext_resource type="Shader" uid="uid://def2nm057ygai" path="res://overpower/vfx/rainbow_border.gdshader" id="3_tksp4"]
 [ext_resource type="Script" uid="uid://comrtfwodivtx" path="res://overpower/health/s_health.gd" id="3_vqrh7"]
 [ext_resource type="Script" uid="uid://bn7pftln0qw2x" path="res://overpower/player/s_player_input.gd" id="4_pf0c1"]
 [ext_resource type="PackedScene" uid="uid://cld8l2hsr56d5" path="res://overpower/maps/test_map/test_map.tscn" id="4_vqrh7"]
 [ext_resource type="Script" uid="uid://d00ejbbeer0l1" path="res://overpower/environment/tree/tree.gd" id="5_xx2qm"]
 [ext_resource type="Script" uid="uid://16f377ic4bfi" path="res://overpower/player/s_player_movement.gd" id="6_aeego"]
+[ext_resource type="Shader" uid="uid://c31t3c4ymuu3j" path="res://overpower/vfx/transition.gdshader" id="9_jxavk"]
+[ext_resource type="PackedScene" uid="uid://cihtankx7tnvs" path="res://overpower/ui/pause_menu/pause_menu.tscn" id="10_jxavk"]
+[ext_resource type="AudioStream" uid="uid://b4di4ivb16r5j" path="res://overpower/soundtrack/world_ablaze.ogg" id="15_ag2n5"]
+[ext_resource type="AudioStream" uid="uid://cukanj33n40h7" path="res://overpower/soundtrack/world_ablaze_paused.ogg" id="16_ujj01"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_xuh4b"]
+shader = ExtResource("9_jxavk")
+shader_parameter/progress = 0.0
+shader_parameter/ink_color = Color(1, 1, 1, 1)
+shader_parameter/angle = -10.0
+shader_parameter/stroke_count = 5
+shader_parameter/edge_softness = 0.2
+shader_parameter/dry_brush = 0.6
+shader_parameter/splatter = 0.5
+shader_parameter/wash = 0.4
+shader_parameter/invert = false
+shader_parameter/rect_aspect = 1.7778
+shader_parameter/seed = 0.0
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_l8v81"]
 shader = ExtResource("3_tksp4")
@@ -26,6 +44,13 @@ shader_parameter/node_size = Vector2(64, 64)
 
 [sub_resource type="ArrayMesh" id="ArrayMesh_mpt3s"]
 
+[sub_resource type="AudioStreamSynchronized" id="AudioStreamSynchronized_taarj"]
+stream_count = 2
+stream_0/stream = ExtResource("15_ag2n5")
+stream_0/volume = -10.0
+stream_1/stream = ExtResource("16_ujj01")
+stream_1/volume = -10.0
+
 [node name="Root" type="Node" unique_id=1874902670]
 script = ExtResource("1_3ilhh")
 
@@ -37,6 +62,8 @@ metadata/_custom_type_script = "uid://cdu5tlyk72uu4"
 
 [node name="Entities" type="Node" parent="World" unique_id=1491456806]
 
+[node name="Player" parent="World/Entities" unique_id=806521731 instance=ExtResource("3_aeego")]
+
 [node name="Systems" type="Node" parent="World" unique_id=1543571081]
 
 [node name="input" type="Node" parent="World/Systems" unique_id=855124829]
@@ -45,6 +72,7 @@ metadata/_custom_type_script = "uid://b3vi2ingux88g"
 
 [node name="PlayerInputSystem" type="Node" parent="World/Systems/input" unique_id=1203531377]
 script = ExtResource("4_pf0c1")
+group = &"input"
 metadata/_custom_type_script = "uid://bn7pftln0qw2x"
 
 [node name="gameplay" type="Node" parent="World/Systems" unique_id=1242320925]
@@ -65,12 +93,19 @@ script = ExtResource("6_aeego")
 group = &"physics"
 metadata/_custom_type_script = "uid://16f377ic4bfi"
 
-[node name="Server" type="Node" parent="." unique_id=1826381784]
-script = ExtResource("1_wa4nm")
-
 [node name="Sky" parent="." unique_id=1754647677 instance=ExtResource("2_3ilhh")]
 
 [node name="CanvasLayer" type="CanvasLayer" parent="." unique_id=235870811]
+
+[node name="Transition" type="ColorRect" parent="CanvasLayer" unique_id=1260784674]
+z_index = 100
+material = SubResource("ShaderMaterial_xuh4b")
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
 
 [node name="ScreenBorder" type="ColorRect" parent="CanvasLayer" unique_id=1563526010]
 material = SubResource("ShaderMaterial_l8v81")
@@ -84,6 +119,7 @@ mouse_behavior_recursive = 1
 
 [node name="MultiplayerMenu" type="VBoxContainer" parent="CanvasLayer" unique_id=2053909790]
 unique_name_in_owner = true
+visible = false
 offset_left = 10.0
 offset_top = 10.0
 offset_right = 120.0
@@ -101,6 +137,10 @@ text = "join server"
 layout_mode = 2
 text = "send info"
 
+[node name="PauseMenu" parent="CanvasLayer" unique_id=1049754201 instance=ExtResource("10_jxavk")]
+unique_name_in_owner = true
+z_index = 50
+
 [node name="TestMap" parent="." unique_id=2022470389 instance=ExtResource("4_vqrh7")]
 
 [node name="Tree" type="Node3D" parent="." unique_id=414871352]
@@ -109,6 +149,6 @@ script = ExtResource("5_xx2qm")
 [node name="MeshInstance3D" type="MeshInstance3D" parent="Tree" unique_id=1706027777]
 mesh = SubResource("ArrayMesh_mpt3s")
 
-[connection signal="pressed" from="CanvasLayer/MultiplayerMenu/HostServer" to="Server" method="_on_host_server_pressed"]
-[connection signal="pressed" from="CanvasLayer/MultiplayerMenu/JoinServer" to="Server" method="_on_join_server_pressed"]
-[connection signal="pressed" from="CanvasLayer/MultiplayerMenu/SendInformation" to="Server" method="_on_send_information_pressed"]
+[node name="Soundtrack" type="AudioStreamPlayer" parent="." unique_id=218163939]
+unique_name_in_owner = true
+stream = SubResource("AudioStreamSynchronized_taarj")
